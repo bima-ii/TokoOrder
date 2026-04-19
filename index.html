@@ -889,6 +889,116 @@
     }
 
     /* ═══════════════════════════════════════════════════════
+       LOGOUT MODAL
+       ═══════════════════════════════════════════════════════ */
+    .logout-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 32, 39, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10002;
+      padding: 20px;
+    }
+    .logout-overlay.active { display: flex; }
+
+    .logout-modal {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 32px 28px 28px;
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      animation: logoutPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes logoutPopIn {
+      from { opacity: 0; transform: scale(0.75) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .logout-modal .logout-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(231,76,60,0.1) 0%, rgba(231,76,60,0.05) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      animation: logoutIconPulse 2s ease-in-out infinite;
+    }
+    @keyframes logoutIconPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0.15); }
+      50% { box-shadow: 0 0 0 12px rgba(231,76,60,0); }
+    }
+    .logout-modal .logout-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--danger);
+    }
+
+    .logout-modal h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .logout-modal p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .logout-btns {
+      display: flex;
+      gap: 10px;
+    }
+    .logout-btns .btn-logout-cancel {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .logout-btns .btn-logout-cancel:hover {
+      background: var(--surface-alt);
+      border-color: var(--text-muted);
+    }
+    .logout-btns .btn-logout-confirm {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, var(--danger) 0%, #C0392B 100%);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 14px rgba(231,76,60,0.3);
+    }
+    .logout-btns .btn-logout-confirm:hover {
+      box-shadow: 0 6px 20px rgba(231,76,60,0.45);
+      transform: translateY(-1px);
+    }
+    .logout-btns .btn-logout-confirm:active,
+    .logout-btns .btn-logout-cancel:active {
+      transform: scale(0.97);
+    }
+
+    /* ═══════════════════════════════════════════════════════
        UTILITY
        ═══════════════════════════════════════════════════════ */
     .mb-4 { margin-bottom: 4px; }
@@ -922,6 +1032,23 @@
       </form>
 
       <div class="login-footer">© 2026 TokoOrder — KuliSheet v2</div>
+    </div>
+  </div>
+
+  <!-- Logout Modal -->
+  <div class="logout-overlay" id="logoutOverlay">
+    <div class="logout-modal">
+      <div class="logout-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </div>
+      <h3>Logout dari TokoOrder?</h3>
+      <p>Sesi Anda akan diakhiri dan Anda perlu login kembali untuk mengakses aplikasi.</p>
+      <div class="logout-btns">
+        <button class="btn-logout-cancel" onclick="closeLogoutModal()">Batal</button>
+        <button class="btn-logout-confirm" onclick="confirmLogout()">
+          Ya, Logout
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1304,7 +1431,15 @@
     });
 
     function doLogout() {
-      if (!confirm('Yakin ingin logout?')) return;
+      document.getElementById('logoutOverlay').classList.add('active');
+    }
+
+    function closeLogoutModal() {
+      document.getElementById('logoutOverlay').classList.remove('active');
+    }
+
+    function confirmLogout() {
+      document.getElementById('logoutOverlay').classList.remove('active');
       clearSession();
       // Reset UI
       document.getElementById('appContainer').style.display = 'none';
@@ -1326,7 +1461,13 @@
       // Update diinput badge on form
       document.getElementById('diinputLabel').textContent = `${currentUser.namaLengkap} (${currentUser.username})`;
 
-
+      // Show/hide Dashboard for kasir
+      const navDashboard = document.getElementById('navDashboard');
+      if (isAdmin()) {
+        navDashboard.style.display = '';
+      } else {
+        navDashboard.style.display = 'none';
+      }
 
       // Load produk
       loadProduk();
