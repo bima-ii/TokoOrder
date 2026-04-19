@@ -51,6 +51,143 @@
     }
 
     /* ═══════════════════════════════════════════════════════
+       LOGIN PAGE
+       ═══════════════════════════════════════════════════════ */
+    .login-page {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0F2027 0%, #203A43 40%, #1D9E75 100%);
+      padding: 20px;
+    }
+    .login-page.hidden { display: none; }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px 28px 36px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      animation: loginSlideIn 0.6s ease;
+    }
+    @keyframes loginSlideIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 3rem;
+      animation: loginBounce 1s ease 0.4s;
+    }
+    @keyframes loginBounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .login-title {
+      text-align: center;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    .login-subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.8rem;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .login-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .login-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .login-input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+      transition: var(--transition);
+      outline: none;
+    }
+    .login-input::placeholder { color: rgba(255,255,255,0.3); }
+    .login-input:focus {
+      border-color: var(--primary);
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 0 0 3px rgba(29,158,117,0.25);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 8px;
+      box-shadow: 0 6px 20px rgba(29,158,117,0.4);
+    }
+    .login-btn:hover { box-shadow: 0 8px 28px rgba(29,158,117,0.5); transform: translateY(-1px); }
+    .login-btn:active { transform: scale(0.98); }
+    .login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .login-error {
+      display: none;
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(231,76,60,0.15);
+      border: 1px solid rgba(231,76,60,0.3);
+      color: #E74C3C;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-align: center;
+      animation: shake 0.4s ease;
+    }
+    .login-error.show { display: block; }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ═══════════════════════════════════════════════════════
        LAYOUT
        ═══════════════════════════════════════════════════════ */
     .app-container {
@@ -67,24 +204,66 @@
     .app-header {
       background: linear-gradient(135deg, var(--primary) 0%, #15806A 100%);
       color: #fff;
-      padding: 22px 20px 18px;
-      text-align: center;
+      padding: 16px 20px 14px;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 4px 20px rgba(29,158,117,0.25);
     }
-    .app-header h1 {
-      font-size: 1.35rem;
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-brand h1 {
+      font-size: 1.2rem;
       font-weight: 800;
       letter-spacing: -0.5px;
     }
-    .app-header p {
-      font-size: 0.75rem;
-      opacity: 0.85;
-      margin-top: 2px;
+    .header-brand p {
+      font-size: 0.68rem;
+      opacity: 0.8;
+      margin-top: 1px;
       font-weight: 400;
     }
+    .header-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-info {
+      text-align: right;
+    }
+    .user-info .user-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .user-info .user-role {
+      font-size: 0.62rem;
+      opacity: 0.8;
+      font-weight: 500;
+      padding: 1px 8px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 2px;
+    }
+    .btn-logout {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .btn-logout:hover { background: rgba(231,76,60,0.3); border-color: rgba(231,76,60,0.5); }
+    .btn-logout svg { width: 16px; height: 16px; }
 
     /* ═══════════════════════════════════════════════════════
        BOTTOM NAV
@@ -108,7 +287,7 @@
       flex-direction: column;
       align-items: center;
       padding: 10px 4px 8px;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 500;
       color: var(--text-muted);
       cursor: pointer;
@@ -117,7 +296,7 @@
       transition: var(--transition);
       position: relative;
     }
-    .nav-item svg { width: 22px; height: 22px; margin-bottom: 3px; transition: var(--transition); }
+    .nav-item svg { width: 21px; height: 21px; margin-bottom: 3px; transition: var(--transition); }
     .nav-item.active { color: var(--primary); }
     .nav-item.active::before {
       content: '';
@@ -231,6 +410,20 @@
       margin-bottom: 4px;
     }
 
+    .diinput-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-alt);
+      border: 1.5px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+    .diinput-badge svg { width: 14px; height: 14px; opacity: 0.7; }
+
     /* ═══════════════════════════════════════════════════════
        BUTTONS
        ═══════════════════════════════════════════════════════ */
@@ -270,6 +463,18 @@
       background: linear-gradient(135deg, #2C3E50 0%, #1A252F 100%);
       color: #fff;
       box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, var(--danger) 0%, #C0392B 100%);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(231,76,60,0.3);
+    }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 0.75rem;
+      width: auto;
     }
 
     .btn-group { display: flex; gap: 10px; margin-top: 6px; }
@@ -332,7 +537,7 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 10000;
+      z-index: 10001;
       width: 90%;
       max-width: 420px;
       display: flex;
@@ -382,6 +587,9 @@
     .badge-selesai { background: rgba(29,158,117,0.12); color: var(--primary-dark); }
     .badge-batal   { background: rgba(231,76,60,0.12); color: #C0392B; }
 
+    .badge-admin { background: rgba(142,68,173,0.12); color: #8E44AD; }
+    .badge-kasir { background: rgba(52,152,219,0.12); color: #2E86C1; }
+
     /* ═══════════════════════════════════════════════════════
        REKAP TABLE
        ═══════════════════════════════════════════════════════ */
@@ -394,7 +602,7 @@
     }
     .order-table {
       width: 100%;
-      min-width: 800px;
+      min-width: 900px;
       border-collapse: collapse;
       font-size: 0.75rem;
     }
@@ -423,6 +631,11 @@
     .order-table tbody tr { transition: var(--transition); }
     .order-table tbody tr:hover { background: var(--primary-light); }
     .order-table .col-id { font-family: monospace; font-size: 0.68rem; color: var(--text-muted); }
+    .order-table .col-user {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
 
     .status-select {
       padding: 5px 8px;
@@ -437,6 +650,41 @@
       transition: var(--transition);
     }
     .status-select:focus { border-color: var(--primary); }
+
+    /* ═══════════════════════════════════════════════════════
+       SEARCH BAR
+       ═══════════════════════════════════════════════════════ */
+    .search-bar {
+      position: relative;
+      margin-bottom: 10px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 11px 14px 11px 40px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text);
+      background: var(--surface);
+      transition: var(--transition);
+      outline: none;
+    }
+    .search-bar input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+    .search-bar input::placeholder { color: var(--text-muted); }
+    .search-bar .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
 
     /* ═══════════════════════════════════════════════════════
        FILTER BAR
@@ -532,6 +780,69 @@
     .top-info .tp-detail { font-size: 0.72rem; color: var(--text-muted); }
 
     /* ═══════════════════════════════════════════════════════
+       USER MANAGEMENT TABLE
+       ═══════════════════════════════════════════════════════ */
+    .user-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .user-table th {
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      border-bottom: 2px solid var(--border);
+      background: var(--surface-alt);
+    }
+    .user-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+    .user-table tbody tr { transition: var(--transition); }
+    .user-table tbody tr:hover { background: var(--primary-light); }
+
+    .user-actions { display: flex; gap: 6px; }
+
+    /* ═══════════════════════════════════════════════════════
+       MODAL
+       ═══════════════════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9998;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: var(--shadow-lg);
+      animation: fadeSlideUp 0.3s ease;
+    }
+    .modal-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
        EMPTY STATE
        ═══════════════════════════════════════════════════════ */
     .empty-state {
@@ -583,9 +894,36 @@
     .mb-4 { margin-bottom: 4px; }
     .mt-10 { margin-top: 10px; }
     .text-center { text-align: center; }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LOGIN PAGE
+       ═══════════════════════════════════════════════════════ -->
+  <div class="login-page" id="loginPage">
+    <div class="login-card">
+      <div class="login-logo">🛒</div>
+      <div class="login-title">TokoOrder</div>
+      <div class="login-subtitle">Masuk ke sistem pencatatan order</div>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="login-group">
+          <label>Username</label>
+          <input type="text" class="login-input" id="loginUsername" placeholder="Masukkan username" required autocomplete="username">
+        </div>
+        <div class="login-group">
+          <label>Password</label>
+          <input type="password" class="login-input" id="loginPassword" placeholder="Masukkan password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="login-btn" id="loginBtn">Masuk</button>
+        <div class="login-error" id="loginError"></div>
+      </form>
+
+      <div class="login-footer">© 2026 TokoOrder — KuliSheet v2</div>
+    </div>
+  </div>
 
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
@@ -596,11 +934,60 @@
   <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <div class="app-container">
+  <!-- Modal User -->
+  <div class="modal-overlay" id="modalUser">
+    <div class="modal">
+      <div class="modal-title">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <span id="modalUserTitle">Tambah User</span>
+      </div>
+      <form id="userForm" autocomplete="off">
+        <input type="hidden" id="userIsEdit" value="0">
+        <div class="form-group">
+          <label>Username <span class="required">*</span></label>
+          <input type="text" class="form-control" id="userUsername" placeholder="Huruf kecil, tanpa spasi" required>
+        </div>
+        <div class="form-group">
+          <label>Password <span class="required">*</span></label>
+          <input type="text" class="form-control" id="userPassword" placeholder="Min. 4 karakter" required minlength="4">
+        </div>
+        <div class="form-group">
+          <label>Role <span class="required">*</span></label>
+          <select class="form-control" id="userRole" required>
+            <option value="Admin">Admin</option>
+            <option value="Kasir" selected>Kasir</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nama Lengkap <span class="required">*</span></label>
+          <input type="text" class="form-control" id="userNamaLengkap" placeholder="Nama lengkap user" required>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary" id="btnSimpanUser">Simpan</button>
+          <button type="button" class="btn btn-secondary" onclick="closeUserModal()">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="app-container" id="appContainer" style="display:none">
     <!-- Header -->
     <header class="app-header">
-      <h1>🛒 TokoOrder</h1>
-      <p>Pencatatan Order Toko Online</p>
+      <div class="header-top">
+        <div class="header-brand">
+          <h1>🛒 TokoOrder</h1>
+          <p>Pencatatan Order Toko Online</p>
+        </div>
+        <div class="header-user">
+          <div class="user-info">
+            <div class="user-name" id="headerUserName">—</div>
+            <div class="user-role" id="headerUserRole">—</div>
+          </div>
+          <button class="btn-logout" onclick="doLogout()" title="Logout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
     </header>
 
     <!-- ═══════════════════════════════════════════════
@@ -614,6 +1001,15 @@
         </div>
 
         <form id="orderForm" autocomplete="off">
+          <!-- DiinputOleh (readonly) -->
+          <div class="form-group">
+            <label>Diinput Oleh</label>
+            <div class="diinput-badge" id="diinputBadge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span id="diinputLabel">—</span>
+            </div>
+          </div>
+
           <div class="form-group">
             <label>Nama Pembeli <span class="required">*</span></label>
             <input type="text" class="form-control" id="inputNama" placeholder="Min. 3 karakter" required minlength="3">
@@ -687,6 +1083,12 @@
         </button>
       </div>
 
+      <!-- Search -->
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchRekap" placeholder="Cari ID, nama pembeli, atau produk..." oninput="debounceSearch()">
+      </div>
+
       <div class="filter-bar">
         <select class="form-control" id="filterStatus">
           <option value="Semua">Semua</option>
@@ -727,8 +1129,10 @@
       </div>
     </div>
 
+
+
     <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
+    <nav class="bottom-nav" id="bottomNav">
       <button class="nav-item active" data-tab="pageForm" id="navForm">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
         <span>Form Order</span>
@@ -741,6 +1145,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
         <span>Dashboard</span>
       </button>
+
     </nav>
   </div>
 
@@ -749,6 +1154,7 @@
     // CONFIG
     // ═══════════════════════════════════════════════════════
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQV00E7izBjkifNOCGhxUS56Rr8Ol2T71Xf0KPJF7G-_VUKHFNsHVCFn7US6_OYqqW/exec";
+    const SESSION_KEY = "tokoorder_user";
 
     // ═══════════════════════════════════════════════════════
     // STATE
@@ -756,6 +1162,8 @@
     let isSubmitting = false;
     let produkList = [];
     let chartInstance = null;
+    let currentUser = null; // { username, role, namaLengkap }
+    let searchTimeout = null;
 
     // ═══════════════════════════════════════════════════════
     // UTILS
@@ -796,6 +1204,15 @@
       return map[status] || '';
     }
 
+    function getRoleBadge(role) {
+      if (role === 'Admin') return '<span class="badge badge-admin">Admin</span>';
+      return '<span class="badge badge-kasir">Kasir</span>';
+    }
+
+    function isAdmin() {
+      return currentUser && currentUser.role === 'Admin';
+    }
+
     // ═══════════════════════════════════════════════════════
     // FETCH HELPER
     // ═══════════════════════════════════════════════════════
@@ -817,23 +1234,129 @@
     }
 
     // ═══════════════════════════════════════════════════════
+    // SESSION — sessionStorage
+    // ═══════════════════════════════════════════════════════
+    function saveSession(user) {
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
+      currentUser = user;
+    }
+
+    function loadSession() {
+      try {
+        const raw = sessionStorage.getItem(SESSION_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch { return null; }
+    }
+
+    function clearSession() {
+      sessionStorage.removeItem(SESSION_KEY);
+      currentUser = null;
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // LOGIN / LOGOUT
+    // ═══════════════════════════════════════════════════════
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const errEl = document.getElementById('loginError');
+      errEl.classList.remove('show');
+
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      if (!username || !password) {
+        errEl.textContent = 'Username dan password wajib diisi.';
+        errEl.classList.add('show');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Memproses...';
+
+      try {
+        const result = await apiCall({ action: 'login', username, password });
+        if (!result) {
+          errEl.textContent = 'APPS_SCRIPT_URL belum dikonfigurasi.';
+          errEl.classList.add('show');
+          return;
+        }
+
+        if (result.success) {
+          saveSession({
+            username: result.username,
+            role: result.role,
+            namaLengkap: result.namaLengkap
+          });
+          enterApp();
+        } else {
+          errEl.textContent = result.message || 'Login gagal.';
+          errEl.classList.add('show');
+        }
+      } catch (err) {
+        errEl.textContent = 'Koneksi gagal: ' + err.message;
+        errEl.classList.add('show');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Masuk';
+      }
+    });
+
+    function doLogout() {
+      if (!confirm('Yakin ingin logout?')) return;
+      clearSession();
+      // Reset UI
+      document.getElementById('appContainer').style.display = 'none';
+      document.getElementById('loginPage').classList.remove('hidden');
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginError').classList.remove('show');
+    }
+
+    function enterApp() {
+      // Hide login, show app
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('appContainer').style.display = '';
+
+      // Update header
+      document.getElementById('headerUserName').textContent = currentUser.namaLengkap;
+      document.getElementById('headerUserRole').textContent = currentUser.role;
+
+      // Update diinput badge on form
+      document.getElementById('diinputLabel').textContent = `${currentUser.namaLengkap} (${currentUser.username})`;
+
+
+
+      // Load produk
+      loadProduk();
+
+      // Switch to Form tab
+      switchTab('pageForm');
+    }
+
+    // ═══════════════════════════════════════════════════════
     // TAB NAVIGATION
     // ═══════════════════════════════════════════════════════
+    function switchTab(tabId) {
+      // Update nav
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      const navBtn = document.querySelector(`.nav-item[data-tab="${tabId}"]`);
+      if (navBtn) navBtn.classList.add('active');
+
+      // Update pages
+      document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+
+      // Load data on tab open
+      if (tabId === 'pageRekap') loadRekap();
+      if (tabId === 'pageDashboard') loadDashboard();
+    }
+
     document.querySelectorAll('.nav-item').forEach(navBtn => {
       navBtn.addEventListener('click', () => {
         const tabId = navBtn.dataset.tab;
-
-        // Update nav
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        navBtn.classList.add('active');
-
-        // Update pages
-        document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-
-        // Load data on tab open
-        if (tabId === 'pageRekap') loadRekap();
-        if (tabId === 'pageDashboard') loadDashboard();
+        switchTab(tabId);
       });
     });
 
@@ -904,6 +1427,7 @@
       const qty = Number(document.getElementById('inputQty').value);
       const status = document.getElementById('inputStatus').value;
       const kurir = document.getElementById('inputKurir').value.trim();
+      const diinputOleh = currentUser.username;
 
       // Validasi frontend
       if (namaPembeli.length < 3) { showToast('Nama Pembeli minimal 3 karakter', 'error'); return; }
@@ -919,7 +1443,7 @@
       try {
         const result = await apiCall({
           action: 'simpanOrder',
-          namaPembeli, produk, qty, hargaSatuan, status, kurir
+          namaPembeli, produk, qty, hargaSatuan, status, kurir, diinputOleh
         });
 
         if (!result) return;
@@ -948,17 +1472,31 @@
     }
 
     // ═══════════════════════════════════════════════════════
-    // 2. REKAP ORDER
+    // 2. REKAP ORDER (+ search)
     // ═══════════════════════════════════════════════════════
 
-    async function loadRekap(filterStatus, filterTanggal) {
+    function debounceSearch() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        applyFilter();
+      }, 400);
+    }
+
+    async function loadRekap(filterStatus, filterTanggal, search) {
       const content = document.getElementById('rekapContent');
       content.innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Memuat data...</div></div>';
 
       try {
         const payload = { action: 'getOrder' };
+
+        // Kasir: hanya lihat order miliknya
+        if (!isAdmin()) {
+          payload.filterUser = currentUser.username;
+        }
+
         if (filterStatus && filterStatus !== 'Semua') payload.filterStatus = filterStatus;
         if (filterTanggal) payload.filterTanggal = filterTanggal;
+        if (search) payload.search = search;
 
         const result = await apiCall(payload);
         if (!result) {
@@ -1000,7 +1538,7 @@
               <tr>
                 <th>ID</th><th>Nama</th><th>Produk</th><th>Qty</th>
                 <th>Total</th><th>Status</th><th>Kurir</th>
-                <th>Tanggal</th><th>Jam</th><th>Aksi</th>
+                <th>Tanggal</th><th>Jam</th><th>Oleh</th><th>Aksi</th>
               </tr>
             </thead>
             <tbody>`;
@@ -1017,6 +1555,7 @@
                 <td>${o.kurir}</td>
                 <td>${o.tanggal}</td>
                 <td>${o.jam}</td>
+                <td class="col-user">${o.diinputOleh || '-'}</td>
                 <td>
                   <select class="status-select" data-id="${o.id}" data-idx="${idx}" onchange="changeStatus(this)">
                     <option value="Proses" ${o.status==='Proses'?'selected':''}>Proses</option>
@@ -1073,12 +1612,14 @@
     function applyFilter() {
       const status = document.getElementById('filterStatus').value;
       const tgl = document.getElementById('filterTanggal').value;
-      loadRekap(status, tgl ? formatDateToAPI(tgl) : '');
+      const search = document.getElementById('searchRekap').value.trim();
+      loadRekap(status, tgl ? formatDateToAPI(tgl) : '', search);
     }
 
     function resetFilter() {
       document.getElementById('filterStatus').value = 'Semua';
       document.getElementById('filterTanggal').value = '';
+      document.getElementById('searchRekap').value = '';
       loadRekap();
     }
 
@@ -1086,7 +1627,13 @@
     async function loadExport() {
       showLoading('Mengambil data export...');
       try {
-        const result = await apiCall({ action: 'exportOrder' });
+        const payload = { action: 'exportOrder' };
+        // Kasir: hanya export ordernya sendiri
+        if (!isAdmin()) {
+          payload.filterUser = currentUser.username;
+        }
+
+        const result = await apiCall(payload);
         if (!result) { hideLoading(); return; }
 
         if (!result.success) {
@@ -1113,7 +1660,8 @@
           'Status': o.status,
           'Kurir': o.kurir,
           'Tanggal': o.tanggal,
-          'Jam': o.jam
+          'Jam': o.jam,
+          'Diinput Oleh': o.diinputOleh || ''
         }));
 
         const ws = XLSX.utils.json_to_sheet(rows);
@@ -1133,7 +1681,7 @@
     }
 
     // ═══════════════════════════════════════════════════════
-    // 3. DASHBOARD
+    // 3. DASHBOARD (+ filterUser)
     // ═══════════════════════════════════════════════════════
 
     async function loadDashboard() {
@@ -1141,7 +1689,13 @@
       content.innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Memuat dashboard...</div></div>';
 
       try {
-        const result = await apiCall({ action: 'getDashboard' });
+        const payload = { action: 'getDashboard' };
+        // Kasir: hanya dashboard miliknya
+        if (!isAdmin()) {
+          payload.filterUser = currentUser.username;
+        }
+
+        const result = await apiCall(payload);
         if (!result) {
           content.innerHTML = '<div class="error-state"><p>APPS_SCRIPT_URL belum diisi</p></div>';
           return;
@@ -1160,7 +1714,10 @@
     }
 
     function renderDashboard(d, container) {
+      const subtitle = isAdmin() ? 'Semua Order' : `Order oleh: ${currentUser.namaLengkap}`;
       let html = `
+        <div style="text-align:center;font-size:0.72rem;color:var(--text-muted);margin-bottom:10px;font-weight:500">${subtitle}</div>
+
         <!-- Summary Cards -->
         <div class="summary-grid">
           <div class="summary-card highlight">
@@ -1202,6 +1759,26 @@
         </div>
       `;
 
+      // Tambah section Kelola User (admin only)
+      if (isAdmin()) {
+        html += `
+          <div class="card" style="margin-top:14px">
+            <div class="card-title" style="justify-content:space-between">
+              <span style="display:flex;align-items:center;gap:8px">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                Kelola User
+              </span>
+              <button class="btn-icon" onclick="openUserModal()" title="Tambah User" style="flex-shrink:0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+            <div id="dashboardUsersContent">
+              <div class="empty-state" style="padding:20px"><div class="empty-icon">⏳</div><div class="empty-title">Memuat...</div></div>
+            </div>
+          </div>
+        `;
+      }
+
       container.innerHTML = html;
 
       // Render chart
@@ -1209,6 +1786,9 @@
 
       // Render top 3
       renderTop3(d.top3Produk || []);
+
+      // Load users jika admin
+      if (isAdmin()) loadUsers();
     }
 
     function renderChart(grafik) {
@@ -1301,10 +1881,201 @@
     }
 
     // ═══════════════════════════════════════════════════════
+    // 4. INFO & ROLE (ADMIN ONLY)
+    // ═══════════════════════════════════════════════════════
+
+    async function loadUsers() {
+      if (!isAdmin()) return;
+
+      const content = document.getElementById('dashboardUsersContent');
+      if (!content) return;
+      content.innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Memuat data user...</div></div>';
+
+      try {
+        const result = await apiCall({ action: 'getUsers' });
+        if (!result) {
+          content.innerHTML = '<div class="error-state"><p>APPS_SCRIPT_URL belum diisi</p></div>';
+          return;
+        }
+
+        if (!result.success) {
+          content.innerHTML = `<div class="error-state"><p>${result.message}</p><button class="btn btn-primary" onclick="loadUsers()">Coba Lagi</button></div>`;
+          return;
+        }
+
+        const data = result.data || [];
+        if (data.length === 0) {
+          content.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">👥</div>
+              <div class="empty-title">Belum ada user</div>
+            </div>`;
+          return;
+        }
+
+        renderUsers(data, content);
+
+      } catch (err) {
+        content.innerHTML = `<div class="error-state"><p>Gagal memuat: ${err.message}</p><button class="btn btn-primary" onclick="loadUsers()">Coba Lagi</button></div>`;
+      }
+    }
+
+    function renderUsers(data, container) {
+      let html = `
+        <div class="text-center mb-4" style="font-size:0.75rem;color:var(--text-muted)">
+          ${data.length} user terdaftar
+        </div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Nama Lengkap</th>
+                <th>Role</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>`;
+
+      data.forEach(u => {
+        const isSelf = u.username.toLowerCase() === currentUser.username.toLowerCase();
+        html += `
+              <tr>
+                <td style="font-weight:600">${u.username}${isSelf ? ' <span style="font-size:0.65rem;color:var(--primary)">(Anda)</span>' : ''}</td>
+                <td>${u.namaLengkap}</td>
+                <td>${getRoleBadge(u.role)}</td>
+                <td>
+                  <div class="user-actions">
+                    <button class="btn btn-primary btn-sm" onclick="editUser('${u.username}','${u.password}','${u.role}','${u.namaLengkap}')">Edit</button>
+                    ${!isSelf ? `<button class="btn btn-danger btn-sm" onclick="deleteUser('${u.username}')">Hapus</button>` : ''}
+                  </div>
+                </td>
+              </tr>`;
+      });
+
+      html += '</tbody></table></div>';
+
+      // Add User button
+      html += `
+        <div style="margin-top:14px">
+          <button class="btn btn-primary" onclick="openUserModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Tambah User Baru
+          </button>
+        </div>`;
+
+      container.innerHTML = html;
+    }
+
+    function openUserModal(isEdit) {
+      document.getElementById('modalUser').classList.add('active');
+      document.getElementById('userForm').reset();
+      document.getElementById('userIsEdit').value = '0';
+      document.getElementById('userUsername').readOnly = false;
+      document.getElementById('modalUserTitle').textContent = 'Tambah User';
+    }
+
+    function closeUserModal() {
+      document.getElementById('modalUser').classList.remove('active');
+    }
+
+    function editUser(username, password, role, namaLengkap) {
+      document.getElementById('modalUser').classList.add('active');
+      document.getElementById('modalUserTitle').textContent = 'Edit User';
+      document.getElementById('userIsEdit').value = '1';
+      document.getElementById('userUsername').value = username;
+      document.getElementById('userUsername').readOnly = true;
+      document.getElementById('userPassword').value = password;
+      document.getElementById('userRole').value = role;
+      document.getElementById('userNamaLengkap').value = namaLengkap;
+    }
+
+    document.getElementById('userForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const isEdit = document.getElementById('userIsEdit').value === '1';
+      const username = document.getElementById('userUsername').value.trim();
+      const password = document.getElementById('userPassword').value.trim();
+      const role = document.getElementById('userRole').value;
+      const namaLengkap = document.getElementById('userNamaLengkap').value.trim();
+
+      if (!username || !password || !namaLengkap) {
+        showToast('Semua field wajib diisi', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('btnSimpanUser');
+      btn.disabled = true;
+      showLoading(isEdit ? 'Mengupdate user...' : 'Menambah user...');
+
+      try {
+        const result = await apiCall({
+          action: 'simpanUser',
+          username, password, role, namaLengkap,
+          isEdit
+        });
+
+        if (!result) return;
+
+        if (result.success) {
+          showToast(result.message || 'Berhasil!', 'success');
+          closeUserModal();
+
+          // Jika edit diri sendiri, update session
+          if (isEdit && username.toLowerCase() === currentUser.username.toLowerCase()) {
+            currentUser.role = role;
+            currentUser.namaLengkap = namaLengkap;
+            saveSession(currentUser);
+            document.getElementById('headerUserName').textContent = namaLengkap;
+            document.getElementById('headerUserRole').textContent = role;
+            document.getElementById('diinputLabel').textContent = `${namaLengkap} (${username})`;
+          }
+
+          loadUsers();
+          loadDashboard();
+        } else {
+          showToast(result.message || 'Gagal menyimpan user', 'error');
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        hideLoading();
+      }
+    });
+
+    async function deleteUser(username) {
+      if (!confirm(`Yakin ingin menghapus user "${username}"?`)) return;
+
+      showLoading('Menghapus user...');
+      try {
+        const result = await apiCall({ action: 'hapusUser', username });
+        if (!result) return;
+
+        if (result.success) {
+          showToast(result.message || 'User dihapus!', 'success');
+          loadUsers();
+        } else {
+          showToast(result.message || 'Gagal menghapus user', 'error');
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message, 'error');
+      } finally {
+        hideLoading();
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════
     // INIT
     // ═══════════════════════════════════════════════════════
     document.addEventListener('DOMContentLoaded', () => {
-      loadProduk();
+      // Check session
+      const session = loadSession();
+      if (session) {
+        currentUser = session;
+        enterApp();
+      }
+      // Jika tidak ada session, login page sudah tampil
     });
   </script>
 </body>
